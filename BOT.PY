@@ -26,7 +26,7 @@ def send_welcome(message):
     user_id = message.from_user.id
 
     if check_user_subscription(user_id):
-        bot.reply_to(message, "✅ شما به کانال پیوستید! حالا می‌توانید فایل‌ها را دریافت کنید.")
+        bot.reply_to(message, " شما به کانال پیوستید! حالا می‌توانید فایل‌ها را دریافت کنید.")
         # اینجا می‌توانید کد ارسال فایل را قرار دهید
         # مثال:
         # bot.send_document(message.chat.id, document_file_id)
