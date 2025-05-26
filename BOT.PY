@@ -2,18 +2,20 @@
 import telebot
 from telebot import types
 
-API_TOKEN = ''
-BOT_USERNAME = ""
-CHANNEL_USERNAME = # یوزرنیم کانال شما بدون @
+API_TOKEN = "7525775769:AAHDT7CQzj190hBlyr7C5ydjUgCM9a7V7AU"
+BOT_USERNAME = "@VDSFGSDGSDG_BOT"
+CHANNEL_USERNAME = "mortefg"  # یوزرنیم کانال شما بدون @
 bot = telebot.TeleBot(API_TOKEN)
 
 def check_user_subscription(user_id):
     """بررسی عضویت کاربر در کانال"""
     try:
-        # بررسی وضعیت عضویت کاربر در کانال
-        chat_member = bot.get_chat_member(CHANNEL_USERNAME, user_id)
+        # حتما @ را قبل از نام کانال اضافه کنید
+        chat_member = bot.get_chat_member(f"@{CHANNEL_USERNAME}", user_id)
         if chat_member.status in ['member', 'administrator', 'creator']:
             return True
+        else:
+            return False
     except Exception as e:
         print(f"Error checking subscription: {e}")
         return False
@@ -23,16 +25,21 @@ def send_welcome(message):
     """دستور /start برای بررسی عضویت و ارسال فایل‌ها"""
     user_id = message.from_user.id
 
-    # بررسی عضویت کاربر در کانال
     if check_user_subscription(user_id):
         bot.reply_to(message, "✅ شما به کانال پیوستید! حالا می‌توانید فایل‌ها را دریافت کنید.")
-        # در اینجا می‌توانید کد ارسال فایل‌ها را قرار دهید
-        # به عنوان مثال:
+        # اینجا می‌توانید کد ارسال فایل را قرار دهید
+        # مثال:
         # bot.send_document(message.chat.id, document_file_id)
     else:
-        bot.reply_to(message, 
-                     f"❌ برای دریافت فایل‌ها ابتدا باید به کانال ما بپیوندید. لطفاً از لینک زیر برای عضویت استفاده کنید:\n\n"
-                     f"https://t.me/{CHANNEL_USERNAME}\n\n"
-                     "پس از پیوستن به کانال، دوباره دستور /start را ارسال کنید تا فایل‌ها را دریافت کنید.")
+        markup = types.InlineKeyboardMarkup()
+        join_button = types.InlineKeyboardButton(
+            text="📢 عضویت در کانال", url=f"https://t.me/{CHANNEL_USERNAME}"
+        )
+        markup.add(join_button)
+        bot.send_message(
+            message.chat.id,
+            "❌ برای دریافت فایل‌ها ابتدا باید به کانال ما بپیوندید.",
+            reply_markup=markup
+        )
 
 bot.polling(none_stop=True)
