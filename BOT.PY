@@ -2,15 +2,15 @@
 import telebot
 from telebot import types
 
-API_TOKEN = "7525775769:AAHDT7CQzj190hBlyr7C5ydjUgCM9a7V7AU"
-BOT_USERNAME = "@VDSFGSDGSDG_BOT"
-CHANNEL_USERNAME = "mortefg"  # یوزرنیم کانال شما بدون @
+API_TOKEN = ""
+BOT_USERNAME = ""
+CHANNEL_USERNAME = ""  
 bot = telebot.TeleBot(API_TOKEN)
 
 def check_user_subscription(user_id):
     """بررسی عضویت کاربر در کانال"""
     try:
-        # حتما @ را قبل از نام کانال اضافه کنید
+        
         chat_member = bot.get_chat_member(f"@{CHANNEL_USERNAME}", user_id)
         if chat_member.status in ['member', 'administrator', 'creator']:
             return True
