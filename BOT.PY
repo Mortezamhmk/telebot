@@ -8,7 +8,7 @@ CHANNEL_USERNAME = ""
 bot = telebot.TeleBot(API_TOKEN)
 
 def check_user_subscription(user_id):
-    """بررسی عضویت کاربر در کانال"""
+     "عضویت"
     try:
         
         chat_member = bot.get_chat_member(f"@{CHANNEL_USERNAME}", user_id)
